@@ -27,3 +27,4 @@ dist-ssr
 *.sw?
 .vercel
 nexus-autocommit.js
+boost-commits.js
