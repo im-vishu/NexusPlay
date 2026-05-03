@@ -28,3 +28,4 @@ dist-ssr
 .vercel
 nexus-autocommit.js
 boost-commits.js
+.nexus_logs 
