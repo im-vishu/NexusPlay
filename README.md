@@ -8,15 +8,11 @@ NexusPlay is a modern, high-performance **game discovery** web app with a polish
 
 ## 📸 Screenshots
 
-> Add these files to your repo so the images render on GitHub:
-> - `assets/screenshots/home.png`
-> - `assets/screenshots/details.png`
-
 ### 🏠 Home / Discovery
-![NexusPlay Home](assets/screenshots/home.png)
+![NexusPlay Home](src/assets/screenshots/home.png)
 
 ### 🎬 Game Details
-![NexusPlay Game Details](assets/screenshots/details.png)
+![NexusPlay Game Details](src/assets/screenshots/details.png)
 
 ---
 
