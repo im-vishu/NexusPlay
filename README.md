@@ -8,17 +8,19 @@ NexusPlay is a modern, high-performance **game discovery** web app with a polish
 
 ## 📸 Screenshots
 
-<div align="center">
-
 ### 🏠 Home / Discovery
-<img src="src/assets/screenshoots/home.png" alt="NexusPlay Home" width="900" />
 
-<br/><br/>
+<p align="center">
+  <img src="src/assets/screenshoots/home.png" alt="NexusPlay Home" width="900" />
+</p>
+
+<br/>
 
 ### 🎬 Game Details
-<img src="src/assets/screenshoots/details.png" alt="NexusPlay Game Details" width="900" />
 
-</div>
+<p align="center">
+  <img src="src/assets/screenshoots/details.png" alt="NexusPlay Game Details" width="900" />
+</p>
 
 ---
 
