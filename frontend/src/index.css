@@ -1,0 +1,37 @@
+:root {
+  --bg-panel: rgba(20, 30, 44, 0.7);
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --text-main: #eef2f8;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.14), transparent 24%),
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.14), transparent 28%),
+    linear-gradient(150deg, #0b1320 0%, #132033 48%, #16253a 100%);
+  color: var(--text-main);
+}
+
+form {
+  width: 100%;
+}
+
+.genre-list::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.frosted-panel {
+  backdrop-filter: blur(14px);
+  background: var(--bg-panel);
+  border: 1px solid var(--line-soft);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22);
+}
+
+.grid-anchor {
+  scroll-margin-top: 140px;
+}
