@@ -1,4 +1,4 @@
-# NexusPlay - GameHub Plateform 🎮⚡
+# NexusPlay - GameHub Platform 🎮⚡
 
 NexusPlay is a modern, high-performance **game discovery** web app with a polished UI, robust filtering, and rich game detail pages—built with **React + TypeScript + Vite** and deployed on **Vercel**.
 
@@ -11,7 +11,7 @@ NexusPlay is a modern, high-performance **game discovery** web app with a polish
 ### 🏠 Home / Discovery
 
 <p align="center">
-  <img src="src/assets/screenshoots/home.png" alt="NexusPlay Home" width="900" />
+  <img src="frontend/src/assets/screenshoots/home.png" alt="NexusPlay Home" width="900" />
 </p>
 
 <br/>
@@ -19,7 +19,7 @@ NexusPlay is a modern, high-performance **game discovery** web app with a polish
 ### 🎬 Game Details
 
 <p align="center">
-  <img src="src/assets/screenshoots/details.png" alt="NexusPlay Game Details" width="900" />
+  <img src="frontend/src/assets/screenshoots/details.png" alt="NexusPlay Game Details" width="900" />
 </p>
 
 ---
@@ -29,7 +29,7 @@ NexusPlay is a modern, high-performance **game discovery** web app with a polish
 - 🔎 **Search games** quickly
 - 🧩 **Filter & sort** by genre, platform, and more
 - ♾️ **Infinite scroll** browsing experience
-- 📄 **Game details page** with screenshots, trailers (when available), and metadata
+- 📄 **Game details page** with screenshots, trailer previews, download links, and metadata
 - ⭐ **Metascore / critic score** badges
 - 🌙 **Dark mode** toggle
 - ☁️ **Demo & Live modes**
@@ -53,16 +53,13 @@ NexusPlay is a modern, high-performance **game discovery** web app with a polish
 
 ## 🗂️ Project Structure (high-level)
 
-> Your repo structure may vary; adjust paths if you don’t have a `client/` folder.
-
 ```text
 .
-├─ api/                 # Vercel serverless API (Node/Express proxy)
-├─ src/                 # React app source
-├─ public/              # Static assets
+├─ backend/             # Express/Vercel API proxy
+├─ frontend/            # React + TypeScript + Vite app
 ├─ vercel.json          # Vercel routing (SPA + /api)
-├─ vite.config.ts       # Vite config
-└─ ...
+├─ package.json         # Root scripts that delegate to frontend/backend
+└─ README.md
 ```
 
 ---
@@ -89,6 +86,8 @@ APP_URL=http://localhost:5173
 ### 1) Install dependencies
 ```bash
 npm ci
+npm ci --prefix frontend
+npm ci --prefix backend
 ```
 
 ### 2) Run locally
@@ -96,9 +95,9 @@ npm ci
 npm run dev
 ```
 
-If your API runs separately (depends on your setup), run:
+In a second terminal, run the backend:
 ```bash
-node api/server.js
+npm run dev:backend
 ```
 
 Open: http://localhost:5173
@@ -135,7 +134,7 @@ CI runs on pushes/PRs and checks:
 
 3) Ensure Vite settings:
 - **Build Command:** `npm run build`
-- **Output Directory:** `dist`
+- **Output Directory:** `frontend/dist`
 
 4) Verify deep links:
 - Open a game detail page and refresh (SPA routing should not 404)
@@ -175,4 +174,4 @@ MIT
 
 ---
 
-**NexusPlay - GameHub Website** © 2026 — Created by Vishant Chaudhary
+**NexusPlay - GameHub Platform** © 2026 — Created by Vishant Chaudhary
