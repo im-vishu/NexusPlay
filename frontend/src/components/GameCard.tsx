@@ -14,8 +14,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { FiMaximize2, FiX } from "react-icons/fi";
+import { useEffect, useState } from "react";
+import { FiHeart, FiMaximize2, FiX } from "react-icons/fi";
 import Game from "../entities/Game";
 import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
@@ -23,6 +23,7 @@ import getCroppedImageUrl from "../services/image-url";
 import Emoji from "./Emoji";
 import { Link } from "react-router-dom";
 import noImage from "../assets/Image Placeholder/no-image-placeholder-6f3882e0.webp";
+import useGameQueryStore from "../store";
 
 interface Props {
   game: Game;
@@ -34,6 +35,19 @@ const GameCard = ({ game }: Props) => {
   const bg = useColorModeValue("rgba(248, 250, 252, 0.96)", "rgba(15, 24, 36, 0.78)");
   const [imageSrc, setImageSrc] = useState(getCroppedImageUrl(game.background_image));
   const [isImageOpen, setIsImageOpen] = useState(false);
+  const isFavorite = useGameQueryStore((s) => s.isFavorite(game.id));
+  const toggleFavorite = useGameQueryStore((s) => s.toggleFavorite);
+
+  useEffect(() => {
+    if (!isImageOpen) return undefined;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setIsImageOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isImageOpen]);
 
   return (
     <>
@@ -75,6 +89,23 @@ const GameCard = ({ game }: Props) => {
                 event.preventDefault();
                 event.stopPropagation();
                 setIsImageOpen(true);
+              }}
+            />
+            <IconButton
+              aria-label={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+              icon={<FiHeart fill={isFavorite ? "currentColor" : "none"} />}
+              position="absolute"
+              top={3}
+              left={3}
+              size="sm"
+              borderRadius="full"
+              color={isFavorite ? "red.300" : "white"}
+              bg="blackAlpha.600"
+              _hover={{ bg: "blackAlpha.800" }}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                toggleFavorite(game);
               }}
             />
           </Box>
