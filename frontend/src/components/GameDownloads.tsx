@@ -30,7 +30,7 @@ const GameDownloads = ({ gameId }: Props) => {
       <HStack marginBottom={3} spacing={2}>
         <FiDownload />
         <Text as="h2" fontWeight="bold">
-          Download
+          Official Links
         </Text>
       </HStack>
       <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={3}>
