@@ -1,25 +1,36 @@
 import {
   Box,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
   Flex,
   Grid,
   GridItem,
   HStack,
   Stack,
   Text,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { FiSliders } from "react-icons/fi";
 import GameGrid from "../components/GameGrid";
 import GameHeading from "../components/GameHeading";
 import GenreList from "../components/GenreList";
 import PlatformSelector from "../components/PlatformSelector";
+import RecentlyViewedGames from "../components/RecentlyViewedGames";
 import SortSelector from "../components/SortSelector";
 
 const MotionBox = motion(Box);
 
 const HomePage = () => {
   const [isGenrePanelOpen, setIsGenrePanelOpen] = useState(false);
+  const mobileFilters = useDisclosure();
 
   return (
     <Stack spacing={{ base: 6, lg: 8 }} paddingTop={{ base: 1, md: 2 }}>
@@ -64,6 +75,8 @@ const HomePage = () => {
         </MotionBox>
       </Grid>
 
+      <RecentlyViewedGames />
+
       <Grid
         templateAreas={{
           base: `"main" "filters"`,
@@ -97,7 +110,20 @@ const HomePage = () => {
               >
                 Filter and sort your discovery feed.
               </Text>
-              <HStack spacing={3} flexWrap="wrap">
+              <Button
+                display={{ base: "inline-flex", md: "none" }}
+                leftIcon={<FiSliders />}
+                onClick={mobileFilters.onOpen}
+                borderRadius="full"
+                bg="rgba(255, 255, 255, 0.08)"
+                color="white"
+                borderWidth="1px"
+                borderColor="whiteAlpha.200"
+                _hover={{ bg: "rgba(255, 255, 255, 0.14)" }}
+              >
+                Filters
+              </Button>
+              <HStack spacing={3} flexWrap="wrap" display={{ base: "none", md: "flex" }}>
                 <PlatformSelector />
                 <SortSelector />
               </HStack>
@@ -106,7 +132,11 @@ const HomePage = () => {
           </Stack>
         </GridItem>
 
-        <GridItem area="filters" id="genre-rail" display="flex">
+        <GridItem
+          area="filters"
+          id="genre-rail"
+          display={{ base: "none", lg: "flex" }}
+        >
           <Box
             className="genre-list frosted-panel"
             zIndex={10}
@@ -125,6 +155,27 @@ const HomePage = () => {
           </Box>
         </GridItem>
       </Grid>
+
+      <Drawer
+        isOpen={mobileFilters.isOpen}
+        placement="bottom"
+        onClose={mobileFilters.onClose}
+      >
+        <DrawerOverlay />
+        <DrawerContent bg="rgba(12, 20, 32, 0.98)" color="white" borderTopRadius="20px">
+          <DrawerCloseButton />
+          <DrawerHeader>Filters</DrawerHeader>
+          <DrawerBody paddingBottom={6}>
+            <Stack spacing={4}>
+              <HStack spacing={3} flexWrap="wrap">
+                <PlatformSelector />
+                <SortSelector />
+              </HStack>
+              <GenreList isOpen onToggle={() => undefined} />
+            </Stack>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </Stack>
   );
 };
