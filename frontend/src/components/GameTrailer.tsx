@@ -1,5 +1,5 @@
 import { Box, HStack, Text } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FiPlayCircle } from "react-icons/fi";
 import useTrailers from "../hooks/useTrailers";
 
@@ -12,6 +12,7 @@ const GameTrailer = ({ gameId }: Props) => {
   const [videoError, setVideoError] = useState(false);
   const [activeSource, setActiveSource] = useState(0);
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   useEffect(() => {
     setVideoError(false);
@@ -82,14 +83,23 @@ const GameTrailer = ({ gameId }: Props) => {
       </HStack>
       <Box borderRadius="16px" overflow="hidden">
         <video
+          ref={videoRef}
           src={sources[activeSource]}
           poster={first.preview}
           controls
+          muted
           preload="metadata"
           crossOrigin="anonymous"
           style={{ width: "100%", maxHeight: "360px", objectFit: "cover" }}
           onLoadedData={() => setHasLoadedOnce(true)}
           onError={handleVideoError}
+          onMouseEnter={() => {
+            videoRef.current?.play().catch(() => undefined);
+          }}
+          onMouseLeave={() => {
+            if (!videoRef.current) return;
+            videoRef.current.pause();
+          }}
         />
       </Box>
     </Box>
