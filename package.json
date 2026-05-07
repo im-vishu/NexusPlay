@@ -3,7 +3,8 @@
   "version": "1.0.1",
   "private": true,
   "scripts": {
-    "dev": "npm --prefix frontend run dev",
+    "dev": "concurrently -n frontend,backend -c cyan,green \"npm --prefix frontend run dev\" \"npm --prefix backend run dev\"",
+    "dev:all": "npm run dev",
     "dev:frontend": "npm --prefix frontend run dev",
     "dev:backend": "npm --prefix backend run dev",
     "build": "npm --prefix frontend run build",
@@ -14,6 +15,9 @@
     "lint:fix": "npm --prefix frontend run lint:fix",
     "format": "npm --prefix frontend run format",
     "format:check": "npm --prefix frontend run format:check",
-    "test": "npm --prefix frontend run test"
+    "test": "npm --prefix frontend run test && npm --prefix backend test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
