@@ -95,8 +95,9 @@ npm ci --prefix backend
 npm run dev
 ```
 
-In a second terminal, run the backend:
+This starts both the frontend and backend. If you only need one side:
 ```bash
+npm run dev:frontend
 npm run dev:backend
 ```
 
