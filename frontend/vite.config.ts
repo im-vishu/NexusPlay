@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   base: "/",
   build: {
-    outDir: "dist", // Output directory for Vite build
+    outDir: "../dist", // Vercel serves the root dist folder as the static output.
+    emptyOutDir: true,
     chunkSizeWarningLimit: 800, // increase warning threshold (kB)
   },
   server: {

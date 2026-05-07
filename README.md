@@ -135,7 +135,7 @@ CI runs on pushes/PRs and checks:
 
 3) Ensure Vite settings:
 - **Build Command:** `npm run build`
-- **Output Directory:** `frontend/dist`
+- **Output Directory:** `dist`
 
 4) Verify deep links:
 - Open a game detail page and refresh (SPA routing should not 404)
