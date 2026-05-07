@@ -9,7 +9,7 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
 import useScreenshots from "../hooks/useScreenshots";
 import noImage from "../assets/Image Placeholder/no-image-placeholder-6f3882e0.webp";
@@ -21,6 +21,37 @@ interface Props {
 const GameScreenshots = ({ gameId }: Props) => {
   const { data, isLoading, error } = useScreenshots(gameId);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const screenshots = data?.results || [];
+  const activeImage =
+    activeIndex === null ? null : screenshots[activeIndex]?.image || null;
+  const showImageControls = screenshots.length > 1;
+
+  const showPreviousImage = useCallback(() => {
+    setActiveIndex((current) => {
+      if (current === null) return null;
+      return current === 0 ? screenshots.length - 1 : current - 1;
+    });
+  }, [screenshots.length]);
+
+  const showNextImage = useCallback(() => {
+    setActiveIndex((current) => {
+      if (current === null) return null;
+      return current === screenshots.length - 1 ? 0 : current + 1;
+    });
+  }, [screenshots.length]);
+
+  useEffect(() => {
+    if (activeIndex === null) return undefined;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActiveIndex(null);
+      if (event.key === "ArrowLeft") showPreviousImage();
+      if (event.key === "ArrowRight") showNextImage();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeIndex, showNextImage, showPreviousImage]);
 
   if (isLoading) return null;
 
@@ -30,25 +61,6 @@ const GameScreenshots = ({ gameId }: Props) => {
         <Text color="whiteAlpha.800">Screenshots are unavailable for this game.</Text>
       </Box>
     );
-
-  const screenshots = data?.results || [];
-  const activeImage =
-    activeIndex === null ? null : screenshots[activeIndex]?.image || null;
-  const showImageControls = screenshots.length > 1;
-
-  const showPreviousImage = () => {
-    setActiveIndex((current) => {
-      if (current === null) return null;
-      return current === 0 ? screenshots.length - 1 : current - 1;
-    });
-  };
-
-  const showNextImage = () => {
-    setActiveIndex((current) => {
-      if (current === null) return null;
-      return current === screenshots.length - 1 ? 0 : current + 1;
-    });
-  };
 
   if (screenshots.length === 0)
     return (
