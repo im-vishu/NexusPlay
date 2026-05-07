@@ -2,10 +2,12 @@ import { Box, Container } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import AnimatedBackdrop from "../components/AnimatedBackdrop";
 import NavBar from "../components/NavBar";
+import ScrollToTop from "../components/ScrollToTop";
 
 const Layout = () => {
   return (
     <Box minHeight="100vh" position="relative">
+      <ScrollToTop />
       <AnimatedBackdrop />
       <NavBar />
       <Container
